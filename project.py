@@ -11,35 +11,8 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 import re
-from langdetect import detect
 from pyarabic.araby import normalize_hamza, strip_tatweel, strip_tashkeel 
 
-def preparethePDF():
-  text = ""
-  pdf_reader = PdfReader("HR.pdf")
-  for page in pdf_reader.pages:
-    text+=page.extract_text()
-   
-  text_splitter = CharacterTextSplitter(
-      separator="\n",
-      chunk_size=3000,
-      chunk_overlap=400,
-      length_function=len
-    )
-  chunks = text_splitter.split_text(text=text)
-
-  preprocessed_chunks = [
-    chunk if detect(chunk) != 'ar' else re.sub(r'[,\t\n\r\x0b\x0c]', ' ', strip_tatweel(strip_tashkeel(chunk))).strip()
-    for chunk in chunks
-  ]
-  embeddings = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-large",
-                    model_kwargs={'device': 'cpu'})
-  
-  vectorstore = FAISS.from_texts(
-        texts=preprocessed_chunks,
-        embedding=embeddings)  
-   
-  return vectorstore  
 
 def process_question(user_question, vectorstore):
   with st.spinner('Please wait for response😊...'):     
@@ -84,12 +57,7 @@ def main():
   embeddings = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-large",
                     model_kwargs={'device': 'cpu'})
   if user_question:
-    # vectorstore = preparethePDF()
-    # Save the vector store to a file
-     
-    # vectorstore.save_local("vectorstore_V2.faiss")
-    # Load the vector store from a file
-
+  
     vectorstore = FAISS.load_local("vectorstore_V2.faiss",embeddings)
     response = process_question(user_question, vectorstore)
     st.write(response)
