@@ -8,3 +8,4 @@ pypdf==4.0.2
 pyarabic==0.6.15
 sentence-transformers==2.4.0
 faiss-cpu==1.8.0
+streamlit-chat==0.1.1
