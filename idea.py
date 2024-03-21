@@ -26,7 +26,7 @@
      
 #      embeddings = HuggingFaceEmbeddings(model_name="distiluse-base-multilingual-cased-v1",
 #                     model_kwargs={'device': 'cpu'})
-#      db = FAISS.load_local("vectorstore.faiss",embeddings)
+#      db = FAISS.load_local("vectorstore.faiss",embeddings, allow_dangerous_deserialization=True)
      
 #      llm = ChatGoogleGenerativeAI(model='gemini-pro',
 #                    google_api_key=os.getenv("GOOGLE_API_KEY"),
