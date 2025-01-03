@@ -1,7 +1,3 @@
-### README: AI-Powered HR Consultant Chatbot
-
----
-
 # AI-Powered HR Consultant Chatbot
 
 This interactive chatbot provides users with expert-level consultation on human resources (HR) topics. Built using LangChain, FAISS, and Google Generative AI (`gemini-pro`), the app is designed to simulate a professional HR consultant that answers user queries accurately and effectively in Arabic or English. The chatbot can retrieve relevant data from uploaded CSV files, process queries, and provide insightful responses, ensuring a seamless and valuable interaction.
